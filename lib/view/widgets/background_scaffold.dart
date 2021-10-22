@@ -57,9 +57,12 @@ class BackgroundScaffold extends StatelessWidget {
                   width: size.width * 0.4,
                 ),
               ),
-            SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: child,
+            SizedBox(
+              height: double.maxFinite,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                child: child,
+              ),
             ),
           ],
         ),

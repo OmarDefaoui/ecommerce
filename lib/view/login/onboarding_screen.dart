@@ -1,10 +1,9 @@
 import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/utils/constants.dart';
-import 'package:ecommerce/view/start_screens/login_screen.dart';
+import 'package:ecommerce/view/login/login_screen.dart';
 import 'package:ecommerce/view/widgets/custom_button.dart';
 import 'package:ecommerce/view/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -76,7 +75,12 @@ class _SplashScreenState extends State<SplashScreen> {
                     fontSize: 16,
                     onPressed: () {
                       if (currentPage == splashData.length - 1) {
-                        Get.offAll(const LoginScreen());
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
                       } else {
                         setState(() {
                           pageViewController.animateToPage(

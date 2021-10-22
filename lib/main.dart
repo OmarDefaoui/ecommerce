@@ -1,9 +1,8 @@
 import 'package:ecommerce/utils/constants.dart';
-import 'package:ecommerce/view/start_screens/onboarding_screen.dart';
+import 'package:ecommerce/view/login/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'E-Commerce',
       theme: ThemeData(
         primarySwatch: Colors.blue,

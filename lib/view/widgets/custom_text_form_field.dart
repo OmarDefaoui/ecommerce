@@ -7,6 +7,8 @@ class CustomTextFormField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final bool isObscure;
   final TextInputType keyboardType;
+  final String? Function(String?)? validator;
+  final void Function(String?)? onSaved;
 
   const CustomTextFormField({
     Key? key,
@@ -15,6 +17,8 @@ class CustomTextFormField extends StatelessWidget {
     required this.onChanged,
     this.isObscure = false,
     required this.keyboardType,
+    this.validator,
+    this.onSaved,
   }) : super(key: key);
 
   @override
@@ -23,7 +27,6 @@ class CustomTextFormField extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      width: size.width * 0.8,
       decoration: BoxDecoration(
         color: kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
@@ -31,6 +34,9 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         keyboardType: keyboardType,
         onChanged: onChanged,
+        onSaved: onSaved,
+        validator: validator,
+        maxLines: 1,
         obscureText: isObscure,
         decoration: InputDecoration(
           hintText: hintText,
