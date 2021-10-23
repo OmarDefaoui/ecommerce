@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:ecommerce/utils/constants.dart';
+import 'package:ecommerce/view/home/home_screen.dart';
 import 'package:ecommerce/view/login/forgot_password_screen.dart';
 import 'package:ecommerce/view/login/register_screen.dart';
 import 'package:ecommerce/view/widgets/background_scaffold.dart';
@@ -165,6 +166,12 @@ class _LoginScreenState extends State<LoginScreen> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                );
               }
             },
           ),

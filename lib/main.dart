@@ -1,5 +1,6 @@
 import 'package:ecommerce/utils/constants.dart';
-import 'package:ecommerce/view/login/onboarding_screen.dart';
+import 'package:ecommerce/view/home/home_screen.dart';
+// import 'package:ecommerce/view/login/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,10 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'E-Commerce',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,
-        // fontFamily: ,
+        fontFamily: "Muli",
         appBarTheme: const AppBarTheme(
           color: Colors.white,
           elevation: 0,
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
+      home: const HomeScreen(),
     );
   }
 }
