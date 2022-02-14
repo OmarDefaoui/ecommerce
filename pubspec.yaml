@@ -32,7 +32,7 @@ dependencies:
 
   flutter_svg: ^0.22.0
 
-  get: ^4.3.8
+  get: ^4.6.1
   google_sign_in: ^5.1.1
   firebase_core: ^1.7.0
   firebase_auth: ^3.1.2

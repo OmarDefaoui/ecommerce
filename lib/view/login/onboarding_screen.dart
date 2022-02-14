@@ -1,11 +1,12 @@
 import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/utils/constants.dart';
 import 'package:ecommerce/view/login/login_screen.dart';
-import 'package:ecommerce/view/widgets/custom_button.dart';
-import 'package:ecommerce/view/widgets/custom_text.dart';
+import 'package:ecommerce/widgets/custom_button.dart';
+import 'package:ecommerce/view/login/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
+  static String routeName = "/splash";
   const SplashScreen({Key? key}) : super(key: key);
 
   @override

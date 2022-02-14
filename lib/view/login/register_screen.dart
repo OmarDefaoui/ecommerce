@@ -1,14 +1,13 @@
-import 'dart:ui';
-
 import 'package:ecommerce/utils/constants.dart';
-import 'package:ecommerce/view/widgets/background_scaffold.dart';
-import 'package:ecommerce/view/widgets/custom_button.dart';
-import 'package:ecommerce/view/widgets/custom_text.dart';
-import 'package:ecommerce/view/widgets/custom_text_form_field.dart';
+import 'package:ecommerce/view/login/widgets/background_scaffold.dart';
+import 'package:ecommerce/widgets/custom_button.dart';
+import 'package:ecommerce/view/login/widgets/custom_text.dart';
+import 'package:ecommerce/view/login/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class RegisterScreen extends StatefulWidget {
+  static String routeName = "/register";
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
