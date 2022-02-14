@@ -1,4 +1,5 @@
 import 'package:ecommerce/services/api_client.dart';
+import 'package:ecommerce/utils/server_constants.dart';
 import 'package:get/get.dart';
 
 class ProductsService extends GetxService {
@@ -7,6 +8,6 @@ class ProductsService extends GetxService {
 
   Future<Response> getProductsList() async {
     print('in service');
-    return await apiClient.getData('/products');
+    return await apiClient.getData(ServerConstants.PRODUCTS_URI);
   }
 }
