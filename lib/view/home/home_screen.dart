@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    Get.find<ProductController>().getProductsList();
+    // Get.find<ProductController>().getProductsList();
     Get.find<HomeController>().getHomeData();
 
     return Scaffold(

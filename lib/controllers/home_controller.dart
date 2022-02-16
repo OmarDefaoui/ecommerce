@@ -11,19 +11,19 @@ class HomeController extends GetxController {
   late UserModel _userModel;
   late CashbackModel _cashbackModel;
   final List<ProductModel> _popularProductsList = [];
-  final List<Category> _categoriesList = [];
-  final List<GlobalCategory> _globalCategoriesList = [];
+  final List<CategoryModel> _categoriesList = [];
+  final List<GlobalCategoryModel> _globalCategoriesList = [];
 
   UserModel get user => _userModel;
   CashbackModel get cashback => _cashbackModel;
   List<ProductModel> get popularProducts => _popularProductsList;
-  List<Category> get categories => _categoriesList;
-  List<GlobalCategory> get globalCategories => _globalCategoriesList;
+  List<CategoryModel> get categories => _categoriesList;
+  List<GlobalCategoryModel> get globalCategories => _globalCategoriesList;
 
   Future<void> getHomeData() async {
     print('in controller');
     Response response = await homeService.getHomeData();
-    print(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
       _userModel = UserModel.fromMap(response.body['user']);
       _cashbackModel = CashbackModel.fromMap(response.body['cashback']);
@@ -32,15 +32,15 @@ class HomeController extends GetxController {
       _categoriesList.clear();
       _globalCategoriesList.clear();
 
-      (response.body['popular_products']).forEach((v) {
+      for (var v in (response.body['popular_products'] as List)) {
         _popularProductsList.add(ProductModel.fromMap(v));
-      });
-      (response.body['categories']).forEach((v) {
-        _categoriesList.add(Category.fromMap(v));
-      });
-      (response.body['global_categories']).forEach((v) {
-        _globalCategoriesList.add(GlobalCategory.fromMap(v));
-      });
+      }
+      for (var v in (response.body['global_categories'] as List)) {
+        _globalCategoriesList.add(GlobalCategoryModel.fromMap(v));
+        for (var c in (v['categories'] as List)) {
+          _categoriesList.add(CategoryModel.fromMap(c));
+        }
+      }
 
       update();
     } else {

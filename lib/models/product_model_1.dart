@@ -10,7 +10,7 @@ class ProductModel {
     required this.colors,
     required this.review,
     required this.discount,
-    required this.productCategory,
+    this.productCategory,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -23,7 +23,7 @@ class ProductModel {
   final String colors;
   final double review;
   final int discount;
-  final Category productCategory;
+  CategoryModel? productCategory;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -41,7 +41,9 @@ class ProductModel {
         colors: json["colors"],
         review: json["review"].toDouble(),
         discount: json["discount"],
-        productCategory: Category.fromMap(json["product_category"]),
+        productCategory: json["product_category"] == null
+            ? null
+            : CategoryModel.fromMap(json["product_category"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -55,54 +57,15 @@ class ProductModel {
         "colors": colors,
         "review": review,
         "discount": discount,
-        "product_category": productCategory.toMap(),
+        "product_category":
+            productCategory == null ? {} : productCategory!.toMap(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
 }
 
-class Category {
-  Category({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.globalCategory,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  final int id;
-  final String title;
-  final String description;
-  final GlobalCategory globalCategory;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
-  factory Category.fromJson(String str) => Category.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Category.fromMap(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        title: json["title"],
-        description: json["description"],
-        globalCategory: GlobalCategory.fromMap(json["global_category"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "title": title,
-        "description": description,
-        "global_category": globalCategory.toMap(),
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-      };
-}
-
-class GlobalCategory {
-  GlobalCategory({
+class CategoryModel {
+  CategoryModel({
     required this.id,
     required this.title,
     required this.description,
@@ -116,12 +79,12 @@ class GlobalCategory {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  factory GlobalCategory.fromJson(String str) =>
-      GlobalCategory.fromMap(json.decode(str));
+  factory CategoryModel.fromJson(String str) =>
+      CategoryModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory GlobalCategory.fromMap(Map<String, dynamic> json) => GlobalCategory(
+  factory CategoryModel.fromMap(Map<String, dynamic> json) => CategoryModel(
         id: json["id"],
         title: json["title"],
         description: json["description"],
@@ -133,6 +96,50 @@ class GlobalCategory {
         "id": id,
         "title": title,
         "description": description,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+      };
+}
+
+class GlobalCategoryModel {
+  GlobalCategoryModel({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.categories,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  final int id;
+  final String title;
+  final String description;
+  final List<CategoryModel> categories;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  factory GlobalCategoryModel.fromJson(String str) =>
+      GlobalCategoryModel.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory GlobalCategoryModel.fromMap(Map<String, dynamic> json) =>
+      GlobalCategoryModel(
+        id: json["id"],
+        title: json["title"],
+        description: json["description"],
+        categories: List<CategoryModel>.from(
+            json["categories"].map((x) => CategoryModel.fromMap(x))),
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "title": title,
+        "description": description,
+        "categories":
+            List<CategoryModel>.from(categories.map((x) => x.toMap())),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
