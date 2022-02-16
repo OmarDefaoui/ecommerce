@@ -1,9 +1,12 @@
+import 'package:ecommerce/models/cashback_model.dart';
 import 'package:ecommerce/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class DiscountBanner extends StatelessWidget {
+  final CashbackModel cashbackModel;
   const DiscountBanner({
     Key? key,
+    required this.cashbackModel,
   }) : super(key: key);
 
   @override
@@ -16,14 +19,14 @@ class DiscountBanner extends StatelessWidget {
         color: kColorPurple,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: const Text.rich(
+      child: Text.rich(
         TextSpan(
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
           children: [
-            TextSpan(text: 'A summer Surprise\n'),
+            TextSpan(text: '${cashbackModel.title}\n'),
             TextSpan(
-              text: 'Cashback 20%',
-              style: TextStyle(
+              text: '${cashbackModel.body} ${cashbackModel.pourcentage}%',
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),

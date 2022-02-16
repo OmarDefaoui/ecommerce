@@ -1,9 +1,11 @@
+import 'package:ecommerce/controllers/cart_controller.dart';
 import 'package:ecommerce/models/cart_model.dart';
 import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/view/cart_screen/widgets/cart_card.dart';
 import 'package:ecommerce/view/cart_screen/widgets/checkout_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class CartScreen extends StatefulWidget {
   static String routeName = "/cart";
@@ -16,6 +18,9 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
+    Get.find<CartController>().getCartList();
+    List<CartModel> cartList = [];
+
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -25,7 +30,7 @@ class _CartScreenState extends State<CartScreen> {
               style: TextStyle(color: Colors.black),
             ),
             Text(
-              "${demoCarts.length} items",
+              "${cartList.length} items",
               style: Theme.of(context).textTheme.caption,
             ),
           ],
@@ -35,15 +40,15 @@ class _CartScreenState extends State<CartScreen> {
         padding:
             EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
         child: ListView.builder(
-          itemCount: demoCarts.length,
+          itemCount: cartList.length,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Dismissible(
-              key: Key(demoCarts[index].product.id.toString()),
+              key: Key(cartList[index].product.id.toString()),
               direction: DismissDirection.endToStart,
               onDismissed: (direction) {
                 setState(() {
-                  demoCarts.removeAt(index);
+                  cartList.removeAt(index);
                 });
               },
               background: Container(
@@ -59,7 +64,7 @@ class _CartScreenState extends State<CartScreen> {
                   ],
                 ),
               ),
-              child: CartCard(cart: demoCarts[index]),
+              child: CartCard(cart: cartList[index]),
             ),
           ),
         ),

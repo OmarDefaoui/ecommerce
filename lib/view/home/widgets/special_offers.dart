@@ -1,35 +1,17 @@
+import 'package:ecommerce/models/category_model.dart';
 import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/view/home/widgets/section_title.dart';
 import 'package:flutter/material.dart';
 
 class SpecialOffers extends StatelessWidget {
-  const SpecialOffers({Key? key}) : super(key: key);
+  final List<GlobalCategoryModel> globalCategoriesList;
+  const SpecialOffers({
+    Key? key,
+    required this.globalCategoriesList,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> specialOffers = [
-      {
-        "imagePath": "assets/images/Image Banner 2.png",
-        "category": "Smartphone",
-        "bandsCount": 18
-      },
-      {
-        "imagePath": "assets/images/Image Banner 3.png",
-        "category": "Fashion",
-        "bandsCount": 24
-      },
-      {
-        "imagePath": "assets/images/Image Banner 2.png",
-        "category": "Smartphone",
-        "bandsCount": 9
-      },
-      {
-        "imagePath": "assets/images/Image Banner 3.png",
-        "category": "Fashion",
-        "bandsCount": 6
-      },
-    ];
-
     return Column(
       children: [
         SectionTitle(
@@ -41,11 +23,11 @@ class SpecialOffers extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: List.generate(
-              specialOffers.length,
+              globalCategoriesList.length,
               (index) => SpecialOfferCard(
-                imagePath: specialOffers[index]['imagePath'],
-                category: specialOffers[index]['category'],
-                bandsCount: specialOffers[index]['bandsCount'],
+                imagePath: globalCategoriesList[index].image,
+                category: globalCategoriesList[index].title,
+                bandsCount: globalCategoriesList[index].categories.length,
                 onTap: () {},
               ),
             ),

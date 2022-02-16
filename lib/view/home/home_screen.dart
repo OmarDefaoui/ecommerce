@@ -1,5 +1,4 @@
 import 'package:ecommerce/controllers/home_controller.dart';
-import 'package:ecommerce/controllers/product_controller.dart';
 import 'package:ecommerce/utils/enums.dart';
 import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/view/home/widgets/categories.dart';
@@ -23,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    // Get.find<ProductController>().getProductsList();
     Get.find<HomeController>().getHomeData();
 
     return Scaffold(
@@ -31,25 +29,34 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 24),
-            child: Column(
-              children: const [
-                // Home header
-                HomeHeader(),
+            child: GetBuilder<HomeController>(builder: (controller) {
+              if (!controller.isLoaded) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-                // Discount banner
-                DiscountBanner(),
+              return Column(
+                children: [
+                  // Home header
+                  const HomeHeader(),
 
-                // Categories
-                Categories(),
+                  // Discount banner
+                  DiscountBanner(cashbackModel: controller.cashback),
 
-                // Special offers
-                SpecialOffers(),
-                SizedBox(height: 6),
+                  // Categories
+                  Categories(categoriesList: controller.categories),
 
-                // Popular products
-                PopularProducts(),
-              ],
-            ),
+                  // Special offers
+                  SpecialOffers(
+                      globalCategoriesList: controller.globalCategories),
+                  const SizedBox(height: 6),
+
+                  // Popular products
+                  PopularProducts(productsList: controller.popularProducts),
+                ],
+              );
+            }),
           ),
         ),
       ),

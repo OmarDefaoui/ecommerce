@@ -1,101 +1,78 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+
+import 'package:ecommerce/models/category_model.dart';
 
 class ProductModel {
-  final int id;
-  final String title, description;
-  final List<String> images;
-  final List<Color> colors;
-  final double rating, price;
-  final bool isFavourite, isPopular;
-
   ProductModel({
     required this.id,
-    required this.images,
-    required this.colors,
-    this.rating = 0.0,
-    this.isFavourite = false,
-    this.isPopular = false,
     required this.title,
-    required this.price,
     required this.description,
+    required this.image,
+    required this.price,
+    required this.colors,
+    required this.images,
+    required this.rating,
+    required this.discount,
+    this.isFavourite = false,
+    this.productCategory,
+    required this.createdAt,
+    required this.updatedAt,
   });
+
+  final int id;
+  final String title;
+  final String description;
+  final String image;
+  final double price;
+  final List<int> colors;
+  final List<String> images;
+  final double rating;
+  final int discount;
+  final bool isFavourite;
+  CategoryModel? productCategory;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  factory ProductModel.fromJson(String str) =>
+      ProductModel.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory ProductModel.fromMap(Map<String, dynamic> json) => ProductModel(
+        id: json["id"],
+        title: json["title"],
+        description: json["description"],
+        image: json["image"],
+        price: json["price"].toDouble(),
+        colors: json["colors"]
+            .toString()
+            .split(',')
+            .map((c) => int.parse(c))
+            .toList(),
+        images: List<String>.from(json["images"].map((x) => x['image'])),
+        rating: json["review"].toDouble(),
+        discount: json["discount"],
+        isFavourite: json["isFavourite"] ?? false,
+        productCategory: json["product_category"] == null
+            ? null
+            : CategoryModel.fromMap(json["product_category"]),
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "title": title,
+        "description": description,
+        "image": image,
+        "price": price,
+        "colors": colors.join(','),
+        "review": rating,
+        "discount": discount,
+        "isFavourite": isFavourite,
+        "product_category":
+            productCategory == null ? {} : productCategory!.toMap(),
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+      };
 }
-
-List<ProductModel> products = [
-  ProductModel(
-    id: 1,
-    images: [
-      "assets/images/ps4_console_white_1.png",
-      "assets/images/ps4_console_white_2.png",
-      "assets/images/ps4_console_white_3.png",
-      "assets/images/ps4_console_white_4.png",
-    ],
-    colors: [
-      const Color(0xFFF6625E),
-      const Color(0xFF836DB8),
-      const Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Wireless Controller for PS4™",
-    price: 64.99,
-    description: description,
-    rating: 4.8,
-    isFavourite: true,
-    isPopular: true,
-  ),
-  ProductModel(
-    id: 2,
-    images: [
-      "assets/images/Image Popular Product 2.png",
-    ],
-    colors: [
-      const Color(0xFFF6625E),
-      const Color(0xFF836DB8),
-      const Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Nike Sport White - Man Pant",
-    price: 50.5,
-    description: description,
-    rating: 4.1,
-    isPopular: true,
-  ),
-  ProductModel(
-    id: 3,
-    images: [
-      "assets/images/glap.png",
-    ],
-    colors: [
-      const Color(0xFFF6625E),
-      const Color(0xFF836DB8),
-      const Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Gloves XC Omega - Polygon",
-    price: 36.55,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-    isPopular: true,
-  ),
-  ProductModel(
-    id: 4,
-    images: [
-      "assets/images/wireless headset.png",
-    ],
-    colors: [
-      const Color(0xFFF6625E),
-      const Color(0xFF836DB8),
-      const Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Logitech Head",
-    price: 20.20,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-  ),
-];
-
-const String description =
-    "Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing …";

@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PopularProducts extends StatelessWidget {
+  final List<ProductModel> productsList;
   const PopularProducts({
     Key? key,
+    required this.productsList,
   }) : super(key: key);
 
   @override
@@ -23,14 +25,14 @@ class PopularProducts extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: List.generate(
-              products.length,
+              productsList.length,
               (index) => PopularProductCard(
-                product: products[index],
+                product: productsList[index],
                 onTap: () => Navigator.pushNamed(
                   context,
                   DetailsScreen.routeName,
                   arguments: ProductDetailsArguments(
-                    product: products[index],
+                    product: productsList[index],
                   ),
                 ),
               ),
@@ -70,7 +72,7 @@ class PopularProductCard extends StatelessWidget {
                 ),
                 child: Hero(
                   tag: product.id.toString(),
-                  child: Image.asset(product.images[0]),
+                  child: Image.asset(product.image),
                 ),
               ),
             ),

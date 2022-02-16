@@ -1,5 +1,6 @@
 import 'package:ecommerce/models/cashback_model.dart';
-import 'package:ecommerce/models/product_model_1.dart';
+import 'package:ecommerce/models/category_model.dart';
+import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/models/user_model.dart';
 import 'package:ecommerce/services/home_service.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,9 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   final HomeService homeService;
   HomeController({required this.homeService});
+
+  bool _isLoaded = false;
+  bool get isLoaded => _isLoaded;
 
   late UserModel _userModel;
   late CashbackModel _cashbackModel;
@@ -42,6 +46,7 @@ class HomeController extends GetxController {
         }
       }
 
+      _isLoaded = true;
       update();
     } else {
       print('in error else');

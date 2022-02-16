@@ -1,6 +1,8 @@
+import 'package:ecommerce/controllers/home_controller.dart';
 import 'package:ecommerce/utils/constants.dart';
 import 'package:ecommerce/view/home/widgets/popular_products.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Summary extends StatelessWidget {
   const Summary({Key? key}) : super(key: key);
@@ -16,7 +18,10 @@ class Summary extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const PopularProducts(),
+              GetBuilder<HomeController>(builder: (controller) {
+                return PopularProducts(
+                    productsList: controller.popularProducts);
+              }),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
                 child: Divider(),

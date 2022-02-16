@@ -1,5 +1,5 @@
-import 'package:ecommerce/models/cart_model_1.dart';
-import 'package:ecommerce/models/product_model_1.dart';
+import 'package:ecommerce/models/cart_model.dart';
+import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/services/cart_service.dart';
 import 'package:get/get.dart';
 

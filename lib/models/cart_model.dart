@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ecommerce/models/product_model.dart';
 
 class CartModel {
@@ -5,12 +7,11 @@ class CartModel {
   final int numOfItem;
 
   CartModel({required this.product, required this.numOfItem});
+
+  factory CartModel.fromJson(String str) => CartModel.fromMap(json.decode(str));
+
+  factory CartModel.fromMap(Map<String, dynamic> json) => CartModel(
+        product: ProductModel.fromMap(json["product"]),
+        numOfItem: json["numOfItem"],
+      );
 }
-
-// Demo data for our cart
-
-List<CartModel> demoCarts = [
-  CartModel(product: products[0], numOfItem: 2),
-  CartModel(product: products[1], numOfItem: 1),
-  CartModel(product: products[3], numOfItem: 1),
-];
