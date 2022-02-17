@@ -18,9 +18,40 @@ class ApiClient extends GetConnect implements GetxService {
   }
 
   Future<Response> getData(String uri) async {
-    print('in api');
+    print('in api get');
     try {
       Response response = await get(uri, headers: _mainHeaders);
+      return response;
+    } catch (e) {
+      return Response(statusCode: 1, statusText: e.toString());
+    }
+  }
+
+  Future<Response> postData(String uri, Map<dynamic, dynamic> body) async {
+    print('in api post');
+    try {
+      Response response = await post(uri, body, headers: _mainHeaders);
+      return response;
+    } catch (e) {
+      return Response(statusCode: 1, statusText: e.toString());
+    }
+  }
+
+  Future<Response> putData(
+      String uri, Map<dynamic, dynamic> body, int id) async {
+    print('in api put');
+    try {
+      Response response = await put(uri + '/$id', body, headers: _mainHeaders);
+      return response;
+    } catch (e) {
+      return Response(statusCode: 1, statusText: e.toString());
+    }
+  }
+
+  Future<Response> deleteData(String uri, int id) async {
+    print('in api delete');
+    try {
+      Response response = await delete(uri + '/$id', headers: _mainHeaders);
       return response;
     } catch (e) {
       return Response(statusCode: 1, statusText: e.toString());
