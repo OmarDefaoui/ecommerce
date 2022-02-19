@@ -1,3 +1,4 @@
+import 'package:ecommerce/controllers/cart_controller.dart';
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/view/details_screen/widgets/color_dots.dart';
@@ -7,6 +8,7 @@ import 'package:ecommerce/view/details_screen/widgets/product_images.dart';
 import 'package:ecommerce/widgets/default_button.dart';
 import 'package:ecommerce/widgets/top_rounded_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DetailsScreen extends StatelessWidget {
   static String routeName = "/details";
@@ -49,10 +51,17 @@ class DetailsScreen extends StatelessWidget {
                             bottom: getProportionateScreenWidth(40),
                             top: getProportionateScreenWidth(15),
                           ),
-                          child: DefaultButton(
-                            text: "Add To Cart",
-                            press: () {},
-                          ),
+                          child:
+                              GetBuilder<CartController>(builder: (controller) {
+                            return DefaultButton(
+                              text: "Add To Cart",
+                              press: () {
+                                Get.find<CartController>()
+                                    .addItemToCart(product);
+                                Navigator.pop(context);
+                              },
+                            );
+                          }),
                         ),
                       ),
                     ],

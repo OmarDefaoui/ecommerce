@@ -1,8 +1,8 @@
 import 'package:ecommerce/controllers/cart_controller.dart';
-import 'package:ecommerce/models/cart_model.dart';
 import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/view/cart_screen/widgets/cart_card.dart';
 import 'package:ecommerce/view/cart_screen/widgets/checkout_card.dart';
+import 'package:ecommerce/view/details_screen/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -55,9 +55,10 @@ class _CartScreenState extends State<CartScreen> {
                 key: Key(controller.cartList[index].product.id.toString()),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
-                  // setState(() {
-                  controller.cartList.removeAt(index);
-                  // });
+                  if (index >= 0) {
+                    controller.deleteItemInCart(
+                        controller.cartList[index], index);
+                  }
                 },
                 background: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -72,13 +73,26 @@ class _CartScreenState extends State<CartScreen> {
                     ],
                   ),
                 ),
-                child: CartCard(cart: controller.cartList[index]),
+                child: InkWell(
+                  child: CartCard(cart: controller.cartList[index]),
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      DetailsScreen.routeName,
+                      arguments: ProductDetailsArguments(
+                        product: controller.cartList[index].product,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           );
         }),
       ),
-      bottomNavigationBar: const CheckoutCard(),
+      bottomNavigationBar: GetBuilder<CartController>(builder: (controller) {
+        return CheckoutCard(totalPrice: controller.totalPrice);
+      }),
     );
   }
 }

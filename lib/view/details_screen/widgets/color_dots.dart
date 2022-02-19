@@ -1,8 +1,10 @@
+import 'package:ecommerce/controllers/cart_controller.dart';
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/utils/constants.dart';
 import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/widgets/rounded_icon_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ColorDots extends StatelessWidget {
   const ColorDots({
@@ -14,6 +16,8 @@ class ColorDots extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.find<CartController>().getInitialQuantity(product);
+
     // Now this is fixed and only for demo
     int selectedColor = 3;
     return Padding(
@@ -29,16 +33,39 @@ class ColorDots extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          RoundedIconBtn(
-            icon: Icons.remove,
-            press: () {},
-          ),
-          SizedBox(width: getProportionateScreenWidth(20)),
-          RoundedIconBtn(
-            icon: Icons.add,
-            showShadow: true,
-            press: () {},
-          ),
+          GetBuilder<CartController>(
+              builder: (controller) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    RoundedIconBtn(
+                      icon: Icons.remove,
+                      press: () {
+                        if (controller.tempQuantity > 0) {
+                          controller.tempQuantity--;
+                        }
+                      },
+                    ),
+                    SizedBox(width: getProportionateScreenWidth(10)),
+                    Text(
+                      controller.tempQuantity.toString(),
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(width: getProportionateScreenWidth(10)),
+                    RoundedIconBtn(
+                      icon: Icons.add,
+                      showShadow: true,
+                      press: () {
+                        controller.tempQuantity++;
+                      },
+                    ),
+                  ],
+                );
+              }),
         ],
       ),
     );

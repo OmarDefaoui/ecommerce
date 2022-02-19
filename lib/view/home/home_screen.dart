@@ -1,3 +1,4 @@
+import 'package:ecommerce/controllers/cart_controller.dart';
 import 'package:ecommerce/controllers/home_controller.dart';
 import 'package:ecommerce/utils/enums.dart';
 import 'package:ecommerce/utils/size_config.dart';
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     Get.find<HomeController>().getHomeData();
+    Get.find<CartController>().getCartList();
 
     return Scaffold(
       body: SafeArea(

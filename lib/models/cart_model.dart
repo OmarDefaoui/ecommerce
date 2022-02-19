@@ -4,20 +4,20 @@ import 'package:ecommerce/models/product_model.dart';
 
 class CartModel {
   CartModel({
-    required this.id,
+    this.id = 0,
     required this.quantity,
     required this.product,
-    required this.userId,
-    required this.createdAt,
-    required this.updatedAt,
+    this.userId = 0,
+    this.createdAt,
+    this.updatedAt,
   });
 
   final int id;
   int quantity;
   final ProductModel product;
   final int userId;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   factory CartModel.fromJson(String str) => CartModel.fromMap(json.decode(str));
 
@@ -33,11 +33,7 @@ class CartModel {
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
         "quantity": quantity,
-        "product": product.toMap(),
-        "user_id": userId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "product_id": product.id,
       };
 }

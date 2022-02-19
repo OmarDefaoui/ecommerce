@@ -1,4 +1,5 @@
 import 'package:ecommerce/models/cart_model.dart';
+import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/services/cart_service.dart';
 import 'package:get/get.dart';
 
@@ -10,28 +11,60 @@ class CartController extends GetxController {
   bool get isLoaded => _isLoaded;
 
   final List<CartModel> _cartList = [];
-  List<dynamic> get cartList => _cartList;
+  List<CartModel> get cartList => _cartList;
 
-  final Map<String, dynamic> _items = {};
+  int _tempQuantity = 0;
+  int get tempQuantity => _tempQuantity;
+  set tempQuantity(int value) {
+    _tempQuantity = value;
+    try {
+      update();
+    } catch (e) {}
+  }
 
-  void addItemToCart(CartModel cart) {
-    if (_items.containsValue(cart.product)) {
+  void getInitialQuantity(ProductModel product) {
+    int productIndex = indexOfProductInCart(product);
+    tempQuantity = (productIndex >= 0) ? cartList[productIndex].quantity : 0;
+  }
+
+  double get totalPrice {
+    double sum = 0;
+    for (CartModel item in _cartList) {
+      sum += item.quantity * item.product.price;
+    }
+    return sum;
+  }
+
+  bool isProductInCart(ProductModel product) {
+    return _cartList.any((item) => item.product.id == product.id);
+  }
+
+  int indexOfProductInCart(ProductModel product) {
+    return _cartList.indexWhere((item) => item.product.id == product.id);
+  }
+
+  void addItemToCart(ProductModel product) {
+    if (isProductInCart(product)) {
       // update existing cart item
-      _items[cart.id]!.quantity = cart.quantity;
+      int indexProduct = indexOfProductInCart(product);
+      _cartList[indexProduct].quantity = _tempQuantity;
+      CartModel cart = _cartList[indexProduct];
 
       // update cart item in DB
       _updateItemInCart(cart.toMap(), cart.id);
     } else {
-      // add new item to cart
-      _items.addAll(cart.toMap());
+      CartModel cart = CartModel(quantity: _tempQuantity, product: product);
 
       // add item to cart in DB
       _addItemToCart(cart.toMap());
     }
   }
 
-  void deleteItemInCart(CartModel cart) {
+  void deleteItemInCart(CartModel cart, int index) {
+    _cartList.removeAt(index);
     _deleteItemInCart(cart.id);
+
+    update();
   }
 
   Future<void> getCartList() async {
@@ -54,10 +87,13 @@ class CartController extends GetxController {
   Future<void> _addItemToCart(Map<dynamic, dynamic> body) async {
     Response response = await cartService.addItemToCart(body);
     print(response.body);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       print('success add item to cart');
+
+      // add new item to cart locally
+      _cartList.add(CartModel.fromMap(response.body['data']));
     } else {
-      print('in error else');
+      print('in error add item to cart else');
     }
   }
 
@@ -67,7 +103,7 @@ class CartController extends GetxController {
     if (response.statusCode == 200) {
       print('success update item in cart');
     } else {
-      print('in error else');
+      print('in error update item in cart else');
     }
   }
 
