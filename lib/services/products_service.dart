@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecommerce/services/api_client.dart';
 import 'package:ecommerce/utils/server_constants.dart';
 import 'package:get/get.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:get/get.dart';
 
 class ApiClient extends GetConnect implements GetxService {

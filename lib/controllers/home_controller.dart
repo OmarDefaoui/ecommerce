@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+
+import 'package:ecommerce/controllers/favorite_controller.dart';
 import 'package:ecommerce/models/cashback_model.dart';
 import 'package:ecommerce/models/category_model.dart';
 import 'package:ecommerce/models/product_model.dart';
@@ -24,6 +27,10 @@ class HomeController extends GetxController {
   List<CategoryModel> get categories => _categoriesList;
   List<GlobalCategoryModel> get globalCategories => _globalCategoriesList;
 
+  int indexOfProductInPopularProducts(ProductModel product) {
+    return _popularProductsList.indexWhere((item) => item.id == product.id);
+  }
+
   Future<void> getHomeData() async {
     print('in controller');
     Response response = await homeService.getHomeData();
@@ -48,6 +55,8 @@ class HomeController extends GetxController {
 
       _isLoaded = true;
       update();
+
+      Get.find<FavoriteController>().getFavoriteList();
     } else {
       print('in error else');
     }

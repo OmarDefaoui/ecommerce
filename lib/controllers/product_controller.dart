@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/services/products_service.dart';
 import 'package:get/get.dart';
@@ -7,7 +9,7 @@ class ProductController extends GetxController {
   ProductController({required this.productsService});
 
   final List<ProductModel> _productsList = [];
-  List<dynamic> get productsList => _productsList;
+  List<ProductModel> get productsList => _productsList;
 
   Future<void> getProductsList() async {
     print('in controller');
@@ -18,6 +20,7 @@ class ProductController extends GetxController {
       (response.body['data']).forEach((v) {
         _productsList.add(ProductModel.fromMap(v));
       });
+      
       update();
     } else {
       print('in error else');
