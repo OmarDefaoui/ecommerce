@@ -28,7 +28,7 @@ class ProductModel {
   final List<String> images;
   final double rating;
   final int discount;
-  final bool isFavourite;
+  bool isFavourite;
   CategoryModel? productCategory;
   final DateTime createdAt;
   final DateTime updatedAt;

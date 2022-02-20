@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:ecommerce/models/cart_model.dart';
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/services/cart_service.dart';
@@ -19,6 +21,7 @@ class CartController extends GetxController {
     _tempQuantity = value;
     try {
       update();
+    // ignore: empty_catches
     } catch (e) {}
   }
 

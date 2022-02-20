@@ -1,6 +1,7 @@
 import 'package:ecommerce/view/cart_screen/cart_screen.dart';
 import 'package:ecommerce/view/checkout_screen/checkout_screen.dart';
 import 'package:ecommerce/view/details_screen/details_screen.dart';
+import 'package:ecommerce/view/favorite_screen/favorite_screen.dart';
 import 'package:ecommerce/view/home/home_screen.dart';
 import 'package:ecommerce/view/login/forgot_password_screen.dart';
 import 'package:ecommerce/view/login/login_screen.dart';
@@ -25,4 +26,5 @@ final Map<String, WidgetBuilder> routes = {
   CheckoutScreen.routeName: (context) => const CheckoutScreen(),
   TrackOrderScren.routeName: (context) => const TrackOrderScren(),
   TrackingDetailsScreen.routeName: (context) => const TrackingDetailsScreen(),
+  FavoriteScreen.routeName: (context) => const FavoriteScreen(),
 };

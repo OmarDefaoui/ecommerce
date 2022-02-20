@@ -52,7 +52,7 @@ class CheckoutCard extends StatelessWidget {
                   child: SvgPicture.asset("assets/icons/receipt.svg"),
                 ),
                 const Spacer(),
-                const Text("Add voucher code"),
+                const Text("Add promo code"),
                 const SizedBox(width: 10),
                 const Icon(
                   Icons.arrow_forward_ios,
@@ -70,7 +70,7 @@ class CheckoutCard extends StatelessWidget {
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "\$$totalPrice",
+                        text: "\$${totalPrice.toStringAsFixed(2)}",
                         style:
                             const TextStyle(fontSize: 16, color: Colors.black),
                       ),
