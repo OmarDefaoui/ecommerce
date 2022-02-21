@@ -8,6 +8,9 @@ class ProductController extends GetxController {
   final ProductsService productsService;
   ProductController({required this.productsService});
 
+  bool _isLoaded = false;
+  bool get isLoaded => _isLoaded;
+
   final List<ProductModel> _productsList = [];
   List<ProductModel> get productsList => _productsList;
 
@@ -15,12 +18,13 @@ class ProductController extends GetxController {
     print('in controller');
     Response response = await productsService.getProductsList();
     print(response.body);
-    if (response.statusCode == 200) {
+    if (response.statusCode.toString().startsWith('2')) {
       _productsList.clear();
-      (response.body['data']).forEach((v) {
+      for (var v in (response.body['data'] as List)) {
         _productsList.add(ProductModel.fromMap(v));
-      });
-      
+      }
+
+      _isLoaded = true;
       update();
     } else {
       print('in error else');

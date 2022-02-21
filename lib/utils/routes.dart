@@ -7,6 +7,7 @@ import 'package:ecommerce/view/login/forgot_password_screen.dart';
 import 'package:ecommerce/view/login/login_screen.dart';
 import 'package:ecommerce/view/login/onboarding_screen.dart';
 import 'package:ecommerce/view/login/register_screen.dart';
+import 'package:ecommerce/view/products_screen/products_screen.dart';
 import 'package:ecommerce/view/profile_screen/profile_screen.dart';
 import 'package:ecommerce/view/track_order_screen/track_order_screen.dart';
 import 'package:ecommerce/view/track_order_screen/tracking_details_screen.dart';
@@ -27,4 +28,5 @@ final Map<String, WidgetBuilder> routes = {
   TrackOrderScren.routeName: (context) => const TrackOrderScren(),
   TrackingDetailsScreen.routeName: (context) => const TrackingDetailsScreen(),
   FavoriteScreen.routeName: (context) => const FavoriteScreen(),
+  ProductsScreen.routeName: (context) => const ProductsScreen(),
 };

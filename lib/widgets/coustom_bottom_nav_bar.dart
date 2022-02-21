@@ -2,6 +2,7 @@ import 'package:ecommerce/utils/constants.dart';
 import 'package:ecommerce/utils/enums.dart';
 import 'package:ecommerce/view/favorite_screen/favorite_screen.dart';
 import 'package:ecommerce/view/home/home_screen.dart';
+import 'package:ecommerce/view/products_screen/products_screen.dart';
 import 'package:ecommerce/view/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,14 +52,19 @@ class CustomBottomNavBar extends StatelessWidget {
                     }
                   }),
               IconButton(
+                icon: SvgPicture.asset(
+                  "assets/icons/Shopping Bag.svg",
+                  color: inActiveIconColor,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, ProductsScreen.routeName);
+                },
+              ),
+              IconButton(
                 icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
                 onPressed: () {
                   Navigator.pushNamed(context, FavoriteScreen.routeName);
                 },
-              ),
-              IconButton(
-                icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                onPressed: () {},
               ),
               IconButton(
                   icon: SvgPicture.asset(
