@@ -6,6 +6,7 @@ class CartModel {
   CartModel({
     this.id = 0,
     required this.quantity,
+    required this.selectedColor,
     required this.product,
     this.userId = 0,
     this.createdAt,
@@ -14,6 +15,7 @@ class CartModel {
 
   final int id;
   int quantity;
+  int selectedColor;
   final ProductModel product;
   final int userId;
   final DateTime? createdAt;
@@ -26,6 +28,7 @@ class CartModel {
   factory CartModel.fromMap(Map<String, dynamic> json) => CartModel(
         id: json["id"],
         quantity: json["quantity"],
+        selectedColor: json["selectedColor"],
         product: ProductModel.fromMap(json["product"]),
         userId: json["user_id"],
         createdAt: DateTime.parse(json["created_at"]),
@@ -34,6 +37,7 @@ class CartModel {
 
   Map<String, dynamic> toMap() => {
         "quantity": quantity,
+        "selectedColor": selectedColor,
         "product_id": product.id,
       };
 }

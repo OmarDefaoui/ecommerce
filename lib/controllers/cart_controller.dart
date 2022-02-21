@@ -15,19 +15,31 @@ class CartController extends GetxController {
   final List<CartModel> _cartList = [];
   List<CartModel> get cartList => _cartList;
 
+  int _tempSelected = 0;
+  int get tempSelected => _tempSelected;
+  set tempSelected(int value) {
+    _tempSelected = value;
+    try {
+      update();
+      // ignore: empty_catches
+    } catch (e) {}
+  }
+
   int _tempQuantity = 0;
   int get tempQuantity => _tempQuantity;
   set tempQuantity(int value) {
     _tempQuantity = value;
     try {
       update();
-    // ignore: empty_catches
+      // ignore: empty_catches
     } catch (e) {}
   }
 
   void getInitialQuantity(ProductModel product) {
     int productIndex = indexOfProductInCart(product);
     tempQuantity = (productIndex >= 0) ? cartList[productIndex].quantity : 0;
+    tempSelected =
+        (productIndex >= 0) ? cartList[productIndex].selectedColor : 0;
   }
 
   double get totalPrice {
@@ -51,12 +63,17 @@ class CartController extends GetxController {
       // update existing cart item
       int indexProduct = indexOfProductInCart(product);
       _cartList[indexProduct].quantity = _tempQuantity;
+      _cartList[indexProduct].selectedColor = _tempSelected;
       CartModel cart = _cartList[indexProduct];
 
       // update cart item in DB
       _updateItemInCart(cart.toMap(), cart.id);
     } else {
-      CartModel cart = CartModel(quantity: _tempQuantity, product: product);
+      CartModel cart = CartModel(
+        quantity: _tempQuantity,
+        selectedColor: _tempSelected,
+        product: product,
+      );
 
       // add item to cart in DB
       _addItemToCart(cart.toMap());

@@ -18,56 +18,58 @@ class ColorDots extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.find<CartController>().getInitialQuantity(product);
 
-    // Now this is fixed and only for demo
-    int selectedColor = 3;
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-      child: Row(
-        children: [
-          ...List.generate(
-            product.colors.length,
-            (index) => ColorDot(
-              color: Color(product.colors[index]),
-              isSelected: index == selectedColor,
+      child: GetBuilder<CartController>(builder: (controller) {
+        return Row(
+          children: [
+            ...List.generate(
+              product.colors.length,
+              (index) => InkWell(
+                child: ColorDot(
+                  color: Color(product.colors[index]),
+                  isSelected: index == controller.tempSelected,
+                ),
+                onTap: () {
+                  controller.tempSelected = index;
+                },
+              ),
             ),
-          ),
-          const Spacer(),
-          GetBuilder<CartController>(
-              builder: (controller) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    RoundedIconBtn(
-                      icon: Icons.remove,
-                      press: () {
-                        if (controller.tempQuantity > 0) {
-                          controller.tempQuantity--;
-                        }
-                      },
-                    ),
-                    SizedBox(width: getProportionateScreenWidth(10)),
-                    Text(
-                      controller.tempQuantity.toString(),
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(width: getProportionateScreenWidth(10)),
-                    RoundedIconBtn(
-                      icon: Icons.add,
-                      showShadow: true,
-                      press: () {
-                        controller.tempQuantity++;
-                      },
-                    ),
-                  ],
-                );
-              }),
-        ],
-      ),
+            const Spacer(),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                RoundedIconBtn(
+                  icon: Icons.remove,
+                  press: () {
+                    if (controller.tempQuantity > 0) {
+                      controller.tempQuantity--;
+                    }
+                  },
+                ),
+                SizedBox(width: getProportionateScreenWidth(10)),
+                Text(
+                  controller.tempQuantity.toString(),
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(width: getProportionateScreenWidth(10)),
+                RoundedIconBtn(
+                  icon: Icons.add,
+                  showShadow: true,
+                  press: () {
+                    controller.tempQuantity++;
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      }),
     );
   }
 }
