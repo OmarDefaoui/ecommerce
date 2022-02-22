@@ -33,10 +33,7 @@ class DetailsScreen extends StatelessWidget {
             color: Colors.white,
             child: Column(
               children: [
-                ProductDescription(
-                  product: product,
-                  pressOnSeeMore: () {},
-                ),
+                ProductDescription(product: product),
                 TopRoundedContainer(
                   color: const Color(0xFFF6F7F9),
                   child: Column(
