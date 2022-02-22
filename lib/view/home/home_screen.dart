@@ -5,7 +5,7 @@ import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/view/home/widgets/categories.dart';
 import 'package:ecommerce/view/home/widgets/discount_banner.dart';
 import 'package:ecommerce/view/home/widgets/home_header.dart';
-import 'package:ecommerce/view/home/widgets/popular_products.dart';
+import 'package:ecommerce/view/home/widgets/latest_products.dart';
 import 'package:ecommerce/view/home/widgets/special_offers.dart';
 import 'package:ecommerce/widgets/coustom_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       globalCategoriesList: controller.globalCategories),
                   const SizedBox(height: 6),
 
-                  // Popular products
-                  PopularProducts(productsList: controller.popularProducts),
+                  // Latest products
+                  LatestProducts(productsList: controller.latestProducts),
                 ],
               );
             }),

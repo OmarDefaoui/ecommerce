@@ -44,8 +44,7 @@ class FavoriteController extends GetxController {
 
     update();
     homeController
-        .popularProducts[
-            homeController.indexOfProductInPopularProducts(product)]
+        .latestProducts[homeController.indexOfProductInLatestProducts(product)]
         .isFavourite = product.isFavourite;
     homeController.update();
   }
@@ -59,11 +58,11 @@ class FavoriteController extends GetxController {
   }
 
   void _updateItemsFavoriteValue() {
-    List<ProductModel> productsList = homeController.popularProducts;
+    List<ProductModel> productsList = homeController.latestProducts;
     for (ProductModel product in productsList) {
       int indexProduct = indexOfProductInFavorite(product);
       if (indexProduct >= 0) {
-        productsList[homeController.indexOfProductInPopularProducts(product)]
+        productsList[homeController.indexOfProductInLatestProducts(product)]
             .isFavourite = true;
       }
     }

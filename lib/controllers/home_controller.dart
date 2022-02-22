@@ -17,18 +17,18 @@ class HomeController extends GetxController {
 
   late UserModel _userModel;
   late CashbackModel _cashbackModel;
-  final List<ProductModel> _popularProductsList = [];
+  final List<ProductModel> _latestProductsList = [];
   final List<CategoryModel> _categoriesList = [];
   final List<GlobalCategoryModel> _globalCategoriesList = [];
 
   UserModel get user => _userModel;
   CashbackModel get cashback => _cashbackModel;
-  List<ProductModel> get popularProducts => _popularProductsList;
+  List<ProductModel> get latestProducts => _latestProductsList;
   List<CategoryModel> get categories => _categoriesList;
   List<GlobalCategoryModel> get globalCategories => _globalCategoriesList;
 
-  int indexOfProductInPopularProducts(ProductModel product) {
-    return _popularProductsList.indexWhere((item) => item.id == product.id);
+  int indexOfProductInLatestProducts(ProductModel product) {
+    return _latestProductsList.indexWhere((item) => item.id == product.id);
   }
 
   Future<void> getHomeData() async {
@@ -39,12 +39,12 @@ class HomeController extends GetxController {
       _userModel = UserModel.fromMap(response.body['user']);
       _cashbackModel = CashbackModel.fromMap(response.body['cashback']);
 
-      _popularProductsList.clear();
+      _latestProductsList.clear();
       _categoriesList.clear();
       _globalCategoriesList.clear();
 
-      for (var v in (response.body['popular_products'] as List)) {
-        _popularProductsList.add(ProductModel.fromMap(v));
+      for (var v in (response.body['latest_products'] as List)) {
+        _latestProductsList.add(ProductModel.fromMap(v));
       }
       for (var v in (response.body['global_categories'] as List)) {
         _globalCategoriesList.add(GlobalCategoryModel.fromMap(v));

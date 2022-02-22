@@ -1,6 +1,6 @@
 import 'package:ecommerce/controllers/home_controller.dart';
 import 'package:ecommerce/utils/constants.dart';
-import 'package:ecommerce/view/home/widgets/popular_products.dart';
+import 'package:ecommerce/view/home/widgets/latest_products.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,8 +19,7 @@ class Summary extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GetBuilder<HomeController>(builder: (controller) {
-                return PopularProducts(
-                    productsList: controller.popularProducts);
+                return LatestProducts(productsList: controller.latestProducts);
               }),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),

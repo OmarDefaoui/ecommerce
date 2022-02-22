@@ -5,9 +5,9 @@ import 'package:ecommerce/view/home/widgets/section_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class PopularProducts extends StatelessWidget {
+class LatestProducts extends StatelessWidget {
   final List<ProductModel> productsList;
-  const PopularProducts({
+  const LatestProducts({
     Key? key,
     required this.productsList,
   }) : super(key: key);
@@ -17,7 +17,7 @@ class PopularProducts extends StatelessWidget {
     return Column(
       children: [
         SectionTitle(
-          title: 'Popular Product',
+          title: 'Latest Product',
           onPressed: () {},
         ),
         SingleChildScrollView(
@@ -26,7 +26,7 @@ class PopularProducts extends StatelessWidget {
           child: Row(
             children: List.generate(
               productsList.length,
-              (index) => PopularProductCard(
+              (index) => LatestProductCard(
                 product: productsList[index],
                 onTap: () => Navigator.pushNamed(
                   context,
@@ -44,10 +44,10 @@ class PopularProducts extends StatelessWidget {
   }
 }
 
-class PopularProductCard extends StatelessWidget {
+class LatestProductCard extends StatelessWidget {
   final ProductModel product;
   final void Function()? onTap;
-  const PopularProductCard({
+  const LatestProductCard({
     Key? key,
     required this.product,
     required this.onTap,
