@@ -1,6 +1,8 @@
 import 'package:ecommerce/models/category_model.dart';
+import 'package:ecommerce/utils/server_constants.dart';
 import 'package:ecommerce/utils/size_config.dart';
 import 'package:ecommerce/view/home/widgets/section_title.dart';
+import 'package:ecommerce/view/products_screen/products_screen.dart';
 import 'package:flutter/material.dart';
 
 class SpecialOffers extends StatelessWidget {
@@ -16,7 +18,15 @@ class SpecialOffers extends StatelessWidget {
       children: [
         SectionTitle(
           title: 'Special for You',
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              ProductsScreen.routeName,
+              arguments: ProductsScreenArguments(
+                link: ServerConstants.PRODUCTS_URI,
+              ),
+            );
+          },
         ),
         SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -28,7 +38,16 @@ class SpecialOffers extends StatelessWidget {
                 imagePath: globalCategoriesList[index].image,
                 category: globalCategoriesList[index].title,
                 bandsCount: globalCategoriesList[index].categories.length,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    ProductsScreen.routeName,
+                    arguments: ProductsScreenArguments(
+                      link: ServerConstants.GLOBAL_CATEGORY_PRODUCTS_URI +
+                          globalCategoriesList[index].id.toString(),
+                    ),
+                  );
+                },
               ),
             ),
           ),

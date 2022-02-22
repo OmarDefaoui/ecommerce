@@ -88,6 +88,7 @@ class CartController extends GetxController {
   }
 
   Future<void> getCartList() async {
+    _isLoaded = false;
     print('in controller');
     Response response = await cartService.getCartList();
     print(response.body);

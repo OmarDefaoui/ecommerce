@@ -1,5 +1,6 @@
 import 'package:ecommerce/utils/constants.dart';
 import 'package:ecommerce/utils/enums.dart';
+import 'package:ecommerce/utils/server_constants.dart';
 import 'package:ecommerce/view/favorite_screen/favorite_screen.dart';
 import 'package:ecommerce/view/home/home_screen.dart';
 import 'package:ecommerce/view/products_screen/products_screen.dart';
@@ -57,7 +58,13 @@ class CustomBottomNavBar extends StatelessWidget {
                   color: inActiveIconColor,
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, ProductsScreen.routeName);
+                  Navigator.pushNamed(
+                    context,
+                    ProductsScreen.routeName,
+                    arguments: ProductsScreenArguments(
+                      link: ServerConstants.PRODUCTS_URI,
+                    ),
+                  );
                 },
               ),
               IconButton(

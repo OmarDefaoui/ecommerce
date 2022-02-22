@@ -70,6 +70,7 @@ class FavoriteController extends GetxController {
   }
 
   Future<void> getFavoriteList() async {
+    _isLoaded = false;
     print('in controller');
     Response response = await favoriteService.getFavoriteList();
     print(response.body);

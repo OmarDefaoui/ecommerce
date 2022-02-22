@@ -14,9 +14,10 @@ class ProductController extends GetxController {
   final List<ProductModel> _productsList = [];
   List<ProductModel> get productsList => _productsList;
 
-  Future<void> getProductsList() async {
+  Future<void> getProductsList(String link) async {
+    _isLoaded = false;
     print('in controller');
-    Response response = await productsService.getProductsList();
+    Response response = await productsService.getProductsList(link);
     print(response.body);
     if (response.statusCode.toString().startsWith('2')) {
       _productsList.clear();

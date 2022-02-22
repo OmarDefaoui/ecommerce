@@ -32,6 +32,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> getHomeData() async {
+    _isLoaded = false;
     print('in controller');
     Response response = await homeService.getHomeData();
     // print(response.body);

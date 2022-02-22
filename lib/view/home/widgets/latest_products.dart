@@ -1,7 +1,9 @@
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/utils/constants.dart';
+import 'package:ecommerce/utils/server_constants.dart';
 import 'package:ecommerce/view/details_screen/details_screen.dart';
 import 'package:ecommerce/view/home/widgets/section_title.dart';
+import 'package:ecommerce/view/products_screen/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,7 +20,15 @@ class LatestProducts extends StatelessWidget {
       children: [
         SectionTitle(
           title: 'Latest Product',
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              ProductsScreen.routeName,
+              arguments: ProductsScreenArguments(
+                link: ServerConstants.LATEST_PRODUCTS_URI,
+              ),
+            );
+          },
         ),
         SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

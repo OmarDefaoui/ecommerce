@@ -11,7 +11,12 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<ProductController>().getProductsList();
+    final ProductsScreenArguments agrs =
+        ModalRoute.of(context)!.settings.arguments as ProductsScreenArguments;
+    final String link = agrs.link;
+
+    ProductController productController = Get.find<ProductController>();
+    productController.getProductsList(link);
 
     return Scaffold(
       // appBar: const PreferredSize(
@@ -53,4 +58,10 @@ class ProductsScreen extends StatelessWidget {
       }),
     );
   }
+}
+
+class ProductsScreenArguments {
+  final String link;
+
+  ProductsScreenArguments({required this.link});
 }
