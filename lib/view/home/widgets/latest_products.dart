@@ -1,3 +1,4 @@
+import 'package:ecommerce/controllers/favorite_controller.dart';
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/utils/constants.dart';
 import 'package:ecommerce/utils/server_constants.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce/view/home/widgets/section_title.dart';
 import 'package:ecommerce/view/products_screen/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class LatestProducts extends StatelessWidget {
   final List<ProductModel> productsList;
@@ -65,6 +67,8 @@ class LatestProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.find<FavoriteController>();
+
     return InkWell(
       borderRadius: BorderRadius.circular(15),
       onTap: onTap,
@@ -103,25 +107,31 @@ class LatestProductCard extends StatelessWidget {
                     color: kPrimaryColor,
                   ),
                 ),
-                InkWell(
-                  borderRadius: BorderRadius.circular(25),
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    height: 28,
-                    width: 28,
-                    decoration: BoxDecoration(
-                      color: product.isFavourite
-                          ? kPrimaryColor.withOpacity(0.15)
-                          : kSecondaryColor.withOpacity(0.1),
-                      shape: BoxShape.circle,
+                GetBuilder<FavoriteController>(builder: (controller) {
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(25),
+                    onTap: () {
+                      controller.toggleFavorite(product);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      height: 28,
+                      width: 28,
+                      decoration: BoxDecoration(
+                        color: controller.isFavorite(product)
+                            ? kPrimaryColor.withOpacity(0.15)
+                            : kSecondaryColor.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: SvgPicture.asset(
+                        "assets/icons/Heart Icon_2.svg",
+                        color: controller.isFavorite(product)
+                            ? kColorRed
+                            : kColorGrey,
+                      ),
                     ),
-                    child: SvgPicture.asset(
-                      "assets/icons/Heart Icon_2.svg",
-                      color: product.isFavourite ? kColorRed : kColorGrey,
-                    ),
-                  ),
-                ),
+                  );
+                }),
               ],
             ),
           ],
