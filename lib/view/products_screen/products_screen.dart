@@ -24,7 +24,7 @@ class ProductsScreen extends StatelessWidget {
       //   preferredSize: Size.fromHeight(50.0),
       // ),
       appBar: AppBar(
-        title: const HomeHeader(),
+        title: const HomeHeader(isFromHome: false),
         elevation: 0.5,
       ),
       body: GetBuilder<ProductController>(builder: (controller) {

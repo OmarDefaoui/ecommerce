@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return Column(
                 children: [
                   // Home header
-                  const HomeHeader(),
+                  const HomeHeader(isFromHome: true),
 
                   // Discount banner
                   DiscountBanner(cashbackModel: controller.cashback),
