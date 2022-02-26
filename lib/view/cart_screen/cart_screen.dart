@@ -74,6 +74,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
                 child: InkWell(
+                  borderRadius: BorderRadius.circular(15),
                   child: CartCard(cart: controller.cartList[index]),
                   onTap: () {
                     Navigator.pushReplacementNamed(

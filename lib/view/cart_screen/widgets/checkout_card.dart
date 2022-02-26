@@ -82,11 +82,8 @@ class CheckoutCard extends StatelessWidget {
                   child: DefaultButton(
                     text: "Check Out",
                     press: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CheckoutScreen()));
-                      // Navigator.pushNamed(context, CheckoutScreen.routeName);
+                      Navigator.pushReplacementNamed(
+                          context, CheckoutScreen.routeName);
                     },
                   ),
                 ),

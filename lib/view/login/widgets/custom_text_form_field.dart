@@ -33,7 +33,7 @@ class CustomTextFormField extends StatelessWidget {
         keyboardType: keyboardType,
         onChanged: onChanged,
         onSaved: onSaved,
-        validator: validator,
+        validator: validator ?? basicValidator,
         maxLines: 1,
         obscureText: isObscure,
         decoration: InputDecoration(
@@ -46,5 +46,12 @@ class CustomTextFormField extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String? basicValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return "This field can't be empty";
+    }
+    return null;
   }
 }

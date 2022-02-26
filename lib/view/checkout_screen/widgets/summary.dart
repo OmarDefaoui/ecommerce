@@ -1,3 +1,4 @@
+import 'package:ecommerce/controllers/checkout_controller.dart';
 import 'package:ecommerce/controllers/home_controller.dart';
 import 'package:ecommerce/utils/constants.dart';
 import 'package:ecommerce/view/home/widgets/latest_products.dart';
@@ -9,6 +10,8 @@ class Summary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CheckoutController controller = Get.find<CheckoutController>();
+
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(14, 20, 14, 0),
@@ -36,16 +39,16 @@ class Summary extends StatelessWidget {
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Expanded(
                     child: Text(
-                      '21, Alex Davidson Avenue, Opposite Omegatron, Vicent Smith Quarters, \nVictoria Island, \nLagos, \nNigeria',
-                      style: TextStyle(
+                      "${controller.street1}, ${controller.street2}\n${controller.city}\n${controller.state}\n${controller.country}",
+                      style: const TextStyle(
                         color: Colors.black,
                       ),
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.check_circle_rounded,
                     color: kPrimaryColor,
                   ),
@@ -53,7 +56,9 @@ class Summary extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.processIndex--;
+                },
                 child: const Text(
                   'Change',
                   style: TextStyle(color: kPrimaryColor),
